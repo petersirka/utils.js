@@ -33,6 +33,10 @@ var regexpMail = new RegExp('^[a-zA-Z0-9-_.]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$');
 var regexpUrl = new RegExp('^(http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.)?|www\\.){1}([0-9A-Za-z-\\.@:%_\+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?');
 var expressionCache = {};
 
+var LINK_1 = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+var LINK_2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
+var EMAIL = new RegExp('[a-zA-Z0-9-_.]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}');
+
 var VERSION = '1.0.1';
 var ENCODING = 'utf8';
 var UNDEFINED = 'undefined';
@@ -85,8 +89,6 @@ function expression(query, params) {
 		return fn.apply(this, arr);
 	});
 }
-
-global.expression = expression;
 
 /*
 	@obj {Object}
@@ -1370,6 +1372,43 @@ String.prototype.decode = function(key) {
 	return val;
 };
 
+String.prototype.findURL = function() {
+
+	var arr = [];
+	var a = this.match(LINK_1);
+	var b = this.match(LINK_2);
+	var length = 0;
+
+	if (a !== null) {
+		length = a.length;
+		for (var i = 0; i < length; i++)
+			arr.push(a[i]);
+	}
+
+	if (b !== null) {
+		length = b.length;
+		for (var i = 0; i < length; i++)
+			arr.push(b[i]);
+	}
+
+	return arr;
+};
+
+String.prototype.findEmail = function() {
+
+	var arr = [];
+	var a = this.match(EMAIL);
+	if (a === null)
+		return [];
+
+	var length = a.length;
+
+	for (var i = 0; i < length; i++)
+		arr.push(a[i]);
+
+	return arr;
+};
+
 /*
 	Convert value from base64 and save to file
 	@filename {String}
@@ -2221,3 +2260,6 @@ Async.prototype.refresh = function(name) {
 
 exports.Async = Async;
 exports.async = Async;
+
+global.expression = expression;
+global.utils = exports;
