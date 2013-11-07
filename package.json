@@ -1,5 +1,5 @@
 {
-    "name": "supporter",
+    "name": "utils.js",
     "version": "1.0.1",
     "description": "Helper functions.",
     "main": "./index.js",

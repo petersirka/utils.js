@@ -1,7 +1,7 @@
 Utils.js
 ========
 
-Helepr functions from partial.js/utils.
+Helper functions from partial.js/utils.
 
 ```
 npm install utils.js
