@@ -1,0 +1,21 @@
+{
+    "name": "supporter",
+    "version": "1.0.1",
+    "description": "Helper functions.",
+    "main": "./index.js",
+    "keywords": ["utilities", "utility", "utils", "helper", "helpers"],
+    "engines": {
+        "node": "*"
+    },
+    "readmeFilename": "readme.md",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/petersirka/utils.js.git"
+    },
+    "author": {
+        "name": "Peter Širka"
+    }
+}
